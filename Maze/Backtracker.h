@@ -8,6 +8,9 @@
 
 class Backtracker {
 public:
+
+	Backtracker();
+
 	/*
 	deletes a wall separating two cells
 	*/
@@ -15,7 +18,7 @@ public:
 
 	/*
 	returns a vector holding
-	a random cell index
+	a randomly generated cell location
 	*/
 	std::vector<int> generateRandomCell();
 
