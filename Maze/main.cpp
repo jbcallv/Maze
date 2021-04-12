@@ -1,12 +1,11 @@
 #include <SFML/Graphics.hpp>
 #include "Constants.h"
 #include "Grid.h"
-// REMEMBER TO INCLUDE *.h files and not *.cpp files!!
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(width, height), "Maze");
-    Grid grid(height / 50, width / 50);
+    sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "Maze");
+    Grid grid(HEIGHT / CELL_HEIGHT, WIDTH / CELL_WIDTH);
     grid.generateCells();
 
     while (window.isOpen())
@@ -18,7 +17,7 @@ int main()
                 window.close();
         }
 
-        window.clear();
+        window.clear(sf::Color::White);
         grid.Draw(window);
         window.display();
     }

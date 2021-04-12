@@ -26,9 +26,14 @@ public:
 	*/
 	void Draw(sf::RenderWindow& window);
 
+	/*
+	generates the cells for the
+	maze
+	*/
 	void generateCells();
 
 private:
+	// rows and columns in maze
 	int rows;
 	int cols;
 };

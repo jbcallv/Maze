@@ -3,26 +3,45 @@
 #define CELL_H
 
 #include <SFML/Graphics.hpp>
+#include "Constants.h"
 
 class Cell {
 public:
+
+	/*
+	stores which side of the cell 
+	has a wall. Change this int as walls are
+	deleted
+	*/
+	int wall;
+
 	/*
 	constructor to make a cell
-	at row x and column y
+	at row x and column y, with a wall on side
+	walls
 	*/
-	Cell(int x, int y);
+	Cell(int x, int y, int walls);
+
+	/*
+	sets the cell walls depending on parameter
+	*/
+	void generateWalls();
 
 	/*
 	the cell rectangle
 	*/
-	sf::RectangleShape cellRect;
+	// removed as we only need walls - sf::RectangleShape cellRect;
 
+	// walls for each cell
+	sf::RectangleShape topWall;
+	sf::RectangleShape leftWall;
 
 private:
+	// row and column
 	int x;
 	int y;
 
-	int cellWidth = 50;
-	int cellHeight = 50;
+	int cellWidth = CELL_WIDTH;
+	int cellHeight = CELL_HEIGHT;
 };
 #endif
