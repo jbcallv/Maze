@@ -16,6 +16,7 @@ void Grid::generateCells() {
 		for (int j = 0; j < cols; ++j) {
 			Cell temp(i, j);
 			//mazeGrid.at(i).at(j) = temp;
+			// why no worky :(
 		}
 	}
 }
