@@ -4,7 +4,7 @@
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "Maze");
+    sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "Maze", sf::Style::Titlebar | sf::Style::Close);
     Grid grid(HEIGHT / CELL_HEIGHT, WIDTH / CELL_WIDTH);
     grid.generateCells();
 
