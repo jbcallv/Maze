@@ -12,12 +12,17 @@ public:
 	*/
 	Cell(int x, int y);
 
+	/*
+	the cell rectangle
+	*/
+	sf::RectangleShape cellRect;
+
+
 private:
 	int x;
 	int y;
 
-	const int cellWidth = 50;
-	const int cellHeight = 50;
-	sf::RectangleShape cellRect;
+	int cellWidth = 50;
+	int cellHeight = 50;
 };
 #endif

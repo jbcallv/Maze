@@ -8,15 +8,22 @@ Grid::Grid(int rows, int cols) {
 }
 
 void Grid::Draw(sf::RenderWindow& window) {
-	
+	// iterate through cols first as col represents an x coordinate
+	// and row represents a y coordinate
+	for (int i = 0; i < cols; ++i) {
+		for (int j = 0; j < rows; ++j) {
+			window.draw(mazeGrid.at(i).at(j).cellRect);
+		}
+	}
 }
 
 void Grid::generateCells() {
-	for (int i = 0; i < rows; ++i) {
-		for (int j = 0; j < cols; ++j) {
-			Cell temp(i, j);
-			//mazeGrid.at(i).at(j) = temp;
-			// why no worky :(
+	for (int i = 0; i < cols; ++i) {
+		std::vector<Cell> temp;
+		temp.clear();
+		for (int j = 0; j < rows; ++j) {
+			temp.push_back(Cell(i, j));
 		}
+		mazeGrid.push_back(temp);
 	}
 }
