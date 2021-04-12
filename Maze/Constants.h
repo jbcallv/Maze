@@ -2,6 +2,8 @@
 #ifndef CONSTANTS_H
 #define CONSTANTS_H
 
+#include <SFML/Graphics.hpp>
+
 /*
 window stuff
 */
@@ -23,5 +25,12 @@ const int LEFT = 1;
 const int TOP = 2;
 const int TOP_AND_LEFT = 3;
 const int WALL_WIDTH = 5;
+
+/*
+cell color stuff
+*/
+const sf::Color UNVISITED = sf::Color(255, 255, 255, 255);
+const sf::Color VISITED = sf::Color(0, 0, 255, 255);
+const sf::Color WALL_COLOR = sf::Color(0, 0, 0, 255);
 
 #endif

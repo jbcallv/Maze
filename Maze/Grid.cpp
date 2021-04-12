@@ -19,14 +19,29 @@ void Grid::Draw(sf::RenderWindow& window) {
 				// draw top and left walls
 				window.draw(mazeGrid.at(i).at(j).leftWall);
 				window.draw(mazeGrid.at(i).at(j).topWall);
+				if (mazeGrid.at(i).at(j).visited) {
+					mazeGrid.at(i).at(j).cellRect.setFillColor(VISITED);
+					//window.draw(mazeGrid.at(i).at(j).cellRect);
+				}
+				window.draw(mazeGrid.at(i).at(j).cellRect);
+
 			}
 			else if (wallLoc == TOP) {
 				// only draw top wall
 				window.draw(mazeGrid.at(i).at(j).topWall);
+				if (mazeGrid.at(i).at(j).visited) {
+					mazeGrid.at(i).at(j).cellRect.setFillColor(VISITED);
+				}
+				window.draw(mazeGrid.at(i).at(j).cellRect);
+
 			}
 			else if (wallLoc == LEFT) {
 				// only draw left wall
 				window.draw(mazeGrid.at(i).at(j).leftWall);
+				if (mazeGrid.at(i).at(j).visited) {
+					mazeGrid.at(i).at(j).cellRect.setFillColor(VISITED);
+				}
+				window.draw(mazeGrid.at(i).at(j).cellRect);
 			}
 		}
 	}

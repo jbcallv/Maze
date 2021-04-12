@@ -16,6 +16,12 @@ public:
 	int wall;
 
 	/*
+	holds wheter the cell
+	has been visited
+	*/
+	bool visited;
+
+	/*
 	constructor to make a cell
 	at row x and column y, with a wall on side
 	walls
@@ -31,6 +37,7 @@ public:
 	the cell rectangle
 	*/
 	// removed as we only need walls - sf::RectangleShape cellRect;
+	sf::RectangleShape cellRect;
 
 	// walls for each cell
 	sf::RectangleShape topWall;
