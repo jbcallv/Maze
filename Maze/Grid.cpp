@@ -1,10 +1,11 @@
 #include "Grid.h"
 
-Grid::Grid(int rows, int cols) {
+Grid::Grid(int rows, int cols, int seed) {
 	// rows is always height / 50 (cellHeight)
 	// cols is always width / 50 (cellWidth)
 	this->rows = rows;
 	this->cols = cols;
+	this->seed = seed;
 }
 
 void Grid::Draw(sf::RenderWindow& window) {
@@ -65,14 +66,20 @@ void Grid::generateCells() {
 		}
 		mazeGrid.push_back(temp);
 	}
+	sf::Vector2f startingPoint = generateStartingCellBacktracker();
+	mazeGrid.at(startingPoint.x).at(startingPoint.y).visited = true;
 }
 
 sf::Vector2f Grid::generateStartingCellBacktracker() {
-	int x = rand() % rows + 1;
-	int y = rand() % cols + 1;
+	//srand(seed);
+
+	// x is cols and y is rows
+	int x = rand() % cols;
+	int y = rand() % rows;
+
 	return (sf::Vector2f(x, y));
 }
 
-void Grid::backtracker() {
-
+void Grid::stepBacktracker() {
+	// takes one step in the backtracker algorithm
 }

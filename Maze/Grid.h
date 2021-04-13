@@ -5,7 +5,9 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <vector>
+#include <math.h>
 #include "Cell.h"
+#include "Backtracker.h"
 
 class Grid {
 public:
@@ -19,7 +21,7 @@ public:
 	constructor to make
 	a maze grid with n rows and cols
 	*/
-	Grid(int rows, int cols);
+	Grid(int rows, int cols, int seed);
 
 	/*
 	draws all the cells
@@ -38,13 +40,16 @@ public:
 	sf::Vector2f generateStartingCellBacktracker();
 
 	/*
-	runs the backtracker algorithm
+	runs one step of the backtracker algorithm
 	*/
-	void backtracker();
+	void stepBacktracker();
 
 private:
 	// rows and columns in maze
 	int rows;
 	int cols;
+	int seed;
+
+	Backtracker backtracker;
 };
 #endif

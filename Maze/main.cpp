@@ -5,7 +5,8 @@
 int main()
 {
     sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "Maze", sf::Style::Titlebar | sf::Style::Close);
-    Grid grid(HEIGHT / CELL_HEIGHT, WIDTH / CELL_WIDTH);
+    srand(time(0));
+    Grid grid(HEIGHT / CELL_HEIGHT, WIDTH / CELL_WIDTH, rand());
     grid.generateCells();
 
     while (window.isOpen())
@@ -18,6 +19,7 @@ int main()
         }
 
         window.clear(sf::Color::White);
+        grid.stepBacktracker();
         grid.Draw(window);
         window.display();
     }

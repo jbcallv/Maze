@@ -10,7 +10,17 @@
 class Backtracker {
 public:
 
+	/*
+	non-default constructor which uses the
+	maze grid
+	*/
 	Backtracker(std::vector<std::vector<Cell>> mazeGrid);
+
+	/*
+	default constructor so we can
+	call methods in this class and pass in the mazegrid
+	*/
+	Backtracker();
 
 	/*
 	deletes a wall separating two cells
@@ -21,7 +31,7 @@ public:
 	returns a vector holding
 	a randomly generated cell location
 	*/
-	sf::Vector2f generateRandomAdjacentCell(Cell cell);
+	sf::Vector2f generateRandomAdjacentCell(Cell cell, std::vector<std::vector<Cell>> m_mazeGrid);
 
 	/*
 	finds all adjacent
@@ -36,7 +46,7 @@ public:
 	std::stack<Cell> cellStack;
 
 	// reset mazeGrid from grid.cpp to this on each wall deletion
-	std::vector<std::vector<Cell>> m_mazeGrid;
+	//std::vector<std::vector<Cell>> m_mazeGrid;
 private:
 	//std::vector<std::vector<Cell>> m_mazeGrid;
 };

@@ -1,7 +1,11 @@
 #include "Backtracker.h"
 
 Backtracker::Backtracker(std::vector<std::vector<Cell>> mazeGrid) {
-	this->m_mazeGrid = mazeGrid;
+	//this->m_mazeGrid = mazeGrid;
+}
+
+Backtracker::Backtracker() {
+
 }
 
 void Backtracker::deleteWall(Cell cell1, Cell cell2) {
@@ -29,7 +33,7 @@ void Backtracker::deleteWall(Cell cell1, Cell cell2) {
 	// might be neccessary to add conditionals where cell2 < cell1
 }
 
-sf::Vector2f Backtracker::generateRandomAdjacentCell(Cell cell) {
+sf::Vector2f Backtracker::generateRandomAdjacentCell(Cell cell, std::vector<std::vector<Cell>> m_mazeGrid) {
 	// find all unvisited adjacent cells
 	std::vector<Cell> adjacentNonVisited = findAdjacentCells(m_mazeGrid, cell);
 
