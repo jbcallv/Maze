@@ -15,7 +15,10 @@ public:
 	/*
 	holds the maze as a vector
 	*/
-	std::vector<std::vector<Cell>> mazeGrid;
+	//std::vector<std::vector<Cell>> mazeGrid;
+	//int mazeGrid[][];
+	Cell** mazeGrid;
+
 
 	/*
 	constructor to make
@@ -51,5 +54,6 @@ private:
 	int seed;
 
 	Backtracker backtracker;
+	Cell curCell;
 };
 #endif

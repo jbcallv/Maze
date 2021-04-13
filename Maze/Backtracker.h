@@ -4,6 +4,7 @@
 
 #include <vector>
 #include <stack>
+#include <iostream>
 #include "Cell.h"
 #include "Constants.h"
 
@@ -28,16 +29,27 @@ public:
 	void deleteWall(Cell cell1, Cell cell2);
 
 	/*
-	returns a vector holding
-	a randomly generated cell location
+	returns a randomly generated cell
 	*/
-	sf::Vector2f generateRandomAdjacentCell(Cell cell, std::vector<std::vector<Cell>> m_mazeGrid);
+	Cell generateRandomAdjacentCell(Cell cell, Cell **m_mazeGrid);
 
 	/*
 	finds all adjacent
 	cells that haven't been visited
 	*/
-	std::vector<Cell> findAdjacentCells(std::vector<std::vector<Cell>> mazeGrid, Cell cell);
+	std::vector<Cell> findAdjacentCells(Cell **mazeGrid, Cell cell);
+
+	/*
+	returns the cell that is to the right of or below
+	the other
+	*/
+	Cell findRightOrBelow(Cell cell1, Cell cell2);
+
+	/*
+	returns the cell that is to the left of or above
+	the other
+	*/
+	Cell findLeftOrAbove(Cell cell1, Cell cell2);
 
 	/*
 	the stack to which we push

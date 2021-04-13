@@ -1,5 +1,9 @@
 #include "Cell.h"
 
+Cell::Cell() {
+	// default
+}
+
 Cell::Cell(int x, int y, int walls) {
 	this->x = x;
 	this->y = y;

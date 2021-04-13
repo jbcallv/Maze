@@ -19,7 +19,7 @@ int main()
         }
 
         window.clear(sf::Color::White);
-        grid.stepBacktracker();
+        //grid.stepBacktracker();
         grid.Draw(window);
         window.display();
     }

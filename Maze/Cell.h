@@ -22,6 +22,12 @@ public:
 	bool visited;
 
 	/*
+	default constructor for the curCell
+	in Grid.cpp
+	*/
+	Cell();
+
+	/*
 	constructor to make a cell
 	at row x and column y, with a wall on side
 	walls
