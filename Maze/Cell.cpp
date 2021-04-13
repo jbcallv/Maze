@@ -40,4 +40,16 @@ void Cell::generateWalls() {
 		leftWall.setFillColor(WALL_COLOR);
 		leftWall.setPosition(sf::Vector2f(x * cellWidth, y * cellHeight));
 	}
+
+	else if (wall == NO_WALL) {
+		// do nuhin!
+	}
+}
+
+int Cell::getPosX() {
+	return this->x;
+}
+
+int Cell::getPosY() {
+	return this->y;
 }

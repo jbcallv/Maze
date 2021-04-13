@@ -43,6 +43,14 @@ void Grid::Draw(sf::RenderWindow& window) {
 				}
 				window.draw(mazeGrid.at(i).at(j).cellRect);
 			}
+
+			else if (wallLoc == NO_WALL) {
+				// draw no wall
+				if (mazeGrid.at(i).at(j).visited) {
+					mazeGrid.at(i).at(j).cellRect.setFillColor(VISITED);
+				}
+				window.draw(mazeGrid.at(i).at(j).cellRect);
+			}
 		}
 	}
 }
@@ -57,4 +65,14 @@ void Grid::generateCells() {
 		}
 		mazeGrid.push_back(temp);
 	}
+}
+
+sf::Vector2f Grid::generateStartingCellBacktracker() {
+	int x = rand() % rows + 1;
+	int y = rand() % cols + 1;
+	return (sf::Vector2f(x, y));
+}
+
+void Grid::backtracker() {
+
 }

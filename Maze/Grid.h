@@ -32,6 +32,16 @@ public:
 	*/
 	void generateCells();
 
+	/*
+	generates the cell at which to start
+	*/
+	sf::Vector2f generateStartingCellBacktracker();
+
+	/*
+	runs the backtracker algorithm
+	*/
+	void backtracker();
+
 private:
 	// rows and columns in maze
 	int rows;

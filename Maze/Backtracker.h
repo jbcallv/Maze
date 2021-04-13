@@ -5,11 +5,12 @@
 #include <vector>
 #include <stack>
 #include "Cell.h"
+#include "Constants.h"
 
 class Backtracker {
 public:
 
-	Backtracker();
+	Backtracker(std::vector<std::vector<Cell>> mazeGrid);
 
 	/*
 	deletes a wall separating two cells
@@ -20,14 +21,24 @@ public:
 	returns a vector holding
 	a randomly generated cell location
 	*/
-	std::vector<int> generateRandomCell();
+	sf::Vector2f generateRandomAdjacentCell(Cell cell);
+
+	/*
+	finds all adjacent
+	cells that haven't been visited
+	*/
+	std::vector<Cell> findAdjacentCells(std::vector<std::vector<Cell>> mazeGrid, Cell cell);
 
 	/*
 	the stack to which we push
 	cells for backtracking
 	*/
 	std::stack<Cell> cellStack;
+
+	// reset mazeGrid from grid.cpp to this on each wall deletion
+	std::vector<std::vector<Cell>> m_mazeGrid;
 private:
+	//std::vector<std::vector<Cell>> m_mazeGrid;
 };
 
 #endif

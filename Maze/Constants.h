@@ -21,6 +21,7 @@ const int CELL_HEIGHT = 50;
 /*
 wall stuff
 */
+const int NO_WALL = 0;
 const int LEFT = 1;
 const int TOP = 2;
 const int TOP_AND_LEFT = 3;

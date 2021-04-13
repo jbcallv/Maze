@@ -34,6 +34,16 @@ public:
 	void generateWalls();
 
 	/*
+	getter for x
+	*/
+	int getPosX();
+
+	/*
+	getter for y
+	*/
+	int getPosY();
+
+	/*
 	the cell rectangle
 	*/
 	// removed as we only need walls - sf::RectangleShape cellRect;
