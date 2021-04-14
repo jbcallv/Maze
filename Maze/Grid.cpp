@@ -7,9 +7,9 @@ Grid::Grid(int rows, int cols, int seed) {
 	this->cols = cols;
 	this->seed = seed;
 
-	this->mazeGrid = new Cell*[cols];
-	for (int i = 0; i < rows; ++i) {
-		mazeGrid[i] = new Cell[rows];
+	this->mazeGrid = new Cell*[rows + 1];
+	for (int i = 0; i < cols + 1; ++i) {
+		mazeGrid[i] = new Cell[cols + 1];
 	}
 }
 
@@ -17,16 +17,24 @@ void Grid::Draw(sf::RenderWindow& window) {
 	// iterate through cols first as col represents an x coordinate
 	// and row represents a y coordinate
 	int wallLoc;
-	for (int i = 0; i <= cols; ++i) {
-		for (int j = 0; j <= rows; ++j) {
+	for (int i = 0; i < cols; ++i) {
+		for (int j = 0; j < rows; ++j) {
 			// get the location of the wall
 			//wallLoc = mazeGrid.at(i).at(j).wall;
 			wallLoc = mazeGrid[i][j].wall;
 			if (wallLoc == TOP_AND_LEFT) {
+				std::cout << "buggy" << std::endl;
+				std::cout << i << ", " << j << std::endl;
 				// draw top and left walls
 				//window.draw(mazeGrid.at(i).at(j).leftWall);
+				std::cout << mazeGrid[i][j].leftWall.getPosition().x;
+
+				/*
+				BUGGGG
+				*/
 				window.draw(mazeGrid[i][j].leftWall);
 				//window.draw(mazeGrid.at(i).at(j).topWall);
+				//std::cout << mazeGrid[i][j].getPosX() << mazeGrid[i][j].getPosY() << std::endl;
 				window.draw(mazeGrid[i][j].topWall);
 				//if (mazeGrid.at(i).at(j).visited) {
 				if (mazeGrid[i][j].visited) {
@@ -37,6 +45,7 @@ void Grid::Draw(sf::RenderWindow& window) {
 				window.draw(mazeGrid[i][j].cellRect);
 			}
 			else if (wallLoc == TOP) {
+				std::cout << "buggy2" << std::endl;
 				// only draw top wall
 				//window.draw(mazeGrid.at(i).at(j).topWall);
 				window.draw(mazeGrid[i][j].topWall);
@@ -49,6 +58,7 @@ void Grid::Draw(sf::RenderWindow& window) {
 				window.draw(mazeGrid[i][j].cellRect);
 			}
 			else if (wallLoc == LEFT) {
+				std::cout << "buggy3" << std::endl;
 				// only draw left wall
 				//window.draw(mazeGrid.at(i).at(j).leftWall);
 				window.draw(mazeGrid[i][j].leftWall);
@@ -77,19 +87,23 @@ void Grid::Draw(sf::RenderWindow& window) {
 
 void Grid::generateCells() {
 	// change all vector stuff to an array
-	for (int i = 0; i <= cols; ++i) {
-		Cell temp[HEIGHT / CELL_HEIGHT];// = new int[rows];
+	for (int i = 0; i < cols; ++i) {
+		//Cell temp[HEIGHT / CELL_HEIGHT];// = new int[rows];
 		//std::vector<Cell> temp;
 		//temp.clear();
-		for (int j = 0; j <= rows; ++j) {
+		for (int j = 0; j < rows; ++j) {
+			std::cout << i << ", " << j << std::endl;
 			// change last parameter to change wall location
 			// make each cell a pointer
-			temp[j] = Cell(i, j, 3);
+			//temp[j] = Cell(i, j, 3);
+			mazeGrid[i][j] = Cell(i, j, 3);
+			//std::cout << "Cell: " << temp[j].getPosX() << std::endl;
 			//temp.push_back(Cell(i, j, 3));
 		}
 		//mazeGrid.push_back(temp);
-		mazeGrid[i] = temp;
+		//mazeGrid[i] = temp;
 	}
+	//std::cout << "got out" << std::endl;
 	sf::Vector2f startingPoint = generateStartingCellBacktracker();
 	//mazeGrid.at(startingPoint.x).at(startingPoint.y).visited = true;
 	mazeGrid[(int) startingPoint.x][(int) startingPoint.y].visited = true;

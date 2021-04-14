@@ -7,8 +7,9 @@
 /*
 window stuff
 */
-const int WIDTH = 1005;
-const int HEIGHT = 605;
+// need to make it draw line on bottom and right of cell!!
+const int WIDTH = 1000;
+const int HEIGHT = 600;
 
 /*
 cell stuff
