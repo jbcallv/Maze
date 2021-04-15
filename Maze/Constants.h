@@ -15,9 +15,9 @@ const int HEIGHT = 600;
 cell stuff
 */
 // can be any number that can divide 1000
-const int CELL_WIDTH = 100;
+const int CELL_WIDTH = 50;
 // can be any number that can divide 600
-const int CELL_HEIGHT = 100;
+const int CELL_HEIGHT = 50;
 
 /*
 wall stuff

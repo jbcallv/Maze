@@ -1,8 +1,6 @@
 #include "Grid.h"
 
 Grid::Grid(int rows, int cols, int seed) {
-	// rows is always height / 50 (cellHeight)
-	// cols is always width / 50 (cellWidth)
 	this->rows = rows;
 	this->cols = cols;
 	this->seed = seed;
@@ -13,7 +11,6 @@ Grid::Grid(int rows, int cols, int seed) {
 	for (int i = 0; i < cols; ++i) {
 		mazeGrid[i] = new Cell[rows];
 	}
-	//std::cout << rows << ", " << cols << std::endl;
 }
 
 Grid::~Grid() {
@@ -71,7 +68,6 @@ void Grid::Draw(sf::RenderWindow& window) {
 
 void Grid::generateCells() {
 	// TODO: use 1D array instead
-	// change all vector stuff to an array
 	for (int i = 0; i < cols; ++i) {
 		for (int j = 0; j < rows; ++j) {
 			// change last parameter to change wall location
@@ -95,58 +91,124 @@ sf::Vector2f Grid::generateStartingCellBacktracker() {
 void Grid::stepBacktracker() {
 	// takes one step in the backtracker algorithm
 	if (visited < ((rows) * (cols))) {
-		// delete test
-		Cell celly = mazeGrid[curCell.getPosX()][curCell.getPosY() - 1];
-		Cell cellly = mazeGrid[curCell.getPosX() - 1][curCell.getPosY()];
-		backtracker.deleteWall(mazeGrid, curCell, cellly);
-		backtracker.deleteWall(mazeGrid, curCell, celly);
-
-		// find adjacent test
-
-		// curCell has adjacent unvisited cell
-		// bug here. It's not finding the adjacent cells :[
-		/*if (backtracker.findAdjacentCells(mazeGrid, curCell).size() > 0) {
+		// if an adjacent cell exists
+		if (backtracker.findAdjacentCells(mazeGrid, curCell).size() > 0) {
 			// push current cell to stack
 			backtracker.cellStack.push(curCell);
+
 			// generate a random adjacent cell
 			Cell chosenCell = backtracker.generateRandomAdjacentCell(curCell, mazeGrid);
-			std::cout << "cur Cell: " << curCell.getPosX() << ", " << curCell.getPosY() << std::endl;
-			std::cout << "chosen cell: " << chosenCell.getPosX() << ", " << chosenCell.getPosY() << std::endl;
-			// remove wall between curCell and chosen cell
 
-			// passing by value here which doesn't modify cell 1 or cell 2
-			// prove that my speculation is correct by printing out cell2.wall and cell1.wall here
-			// TODO: change all cells into pointers and all vectors into arrays
-			// TODO: change to ampersand before backtracker
-			backtracker.deleteWall(mazeGrid, curCell, chosenCell);
+			// remove wall between curCell and chosen cell
+			deleteWall(&curCell, &chosenCell);
 
 			// make chosen cell the curCell and mark it as visited
-			//curCell.visited = true;
 			chosenCell.visited = true;
 			curCell = chosenCell;
+
 			// increment num of cells visited
 			visited++;
 		}
 		// else if stack not empty
 		else if (backtracker.cellStack.empty() == false) {
-			std::cout << "in else if" << std::endl;
-			// pop cell from stack and make it the current cell
-			// commented next line as it gets set as visited in next step
-			//backtracker.cellStack.top().visited = true;
-			//curCell.cellRect.setFillColor(sf::Color::Green);
-			std::cout << "Before: " << curCell.cellRect.getFillColor().toInteger() << std::endl;
+			// pop cell from stack and make it the current cell. Also set color to see when something comes
+			// out of the stack
 			mazeGrid[curCell.getPosX()][curCell.getPosY()].cellRect.setFillColor(OUT_OF_STACK);
 			curCell.cellRect.setFillColor(OUT_OF_STACK);
-			std::cout << "After: " << curCell.cellRect.getFillColor().toInteger() << std::endl;
+
 			curCell = backtracker.cellStack.top();
-			//mazeGrid[curCell.getPosX()][curCell.getPosY()] = curCell;
-			//mazeGrid[curCell.getPosX()][curCell.getPosY()].cellRect.setFillColor(sf::Color::Red);// = curCell;
 			backtracker.cellStack.pop();
-			// increment num of cells visited
-			//visited++;
 		}
 		else {
+			// to stop taking steps in the backtracker algorithm
 			visited++;
-		}*/
+		}
+	}
+}
+
+void Grid::deleteWall(Cell* cell1, Cell* cell2) {
+	// remember that you can only pass in two adjacent cells
+	if (cell2->getPosX() == cell1->getPosX()) {
+		if (cell2->getPosY() > cell1->getPosY() && cell2->wall == TOP_AND_LEFT) {
+			std::cout << "delete 1" << std::endl;
+			cell2->wall = LEFT;
+			cell2->visited = true;
+			mazeGrid[cell2->getPosX()][cell2->getPosY()] = *cell2;
+		}
+		else if (cell2->getPosY() > cell1->getPosY() && cell2->wall == TOP) {
+			std::cout << "delete 2" << std::endl;
+			cell2->wall = NO_WALL;
+			cell2->visited = true;
+			mazeGrid[cell2->getPosX()][cell2->getPosY()] = *cell2;
+		}
+		else if (cell2->getPosY() > cell1->getPosY() && cell2->wall == LEFT) {
+			std::cout << "deletey" << std::endl;
+			cell2->wall = LEFT;
+			cell2->visited = true;
+			mazeGrid[cell2->getPosX()][cell2->getPosY()] = *cell2;
+		}
+		else if (cell1->getPosY() > cell2->getPosY() && cell1->wall == TOP_AND_LEFT) {
+			std::cout << "delete a" << std::endl;
+			cell1->wall = cell1->wall - 2;
+			cell2->visited = true;
+			mazeGrid[cell2->getPosX()][cell2->getPosY()] = *cell2;
+			mazeGrid[cell1->getPosX()][cell1->getPosY()] = *cell1;
+		}
+		else if (cell1->getPosY() > cell2->getPosY() && cell1->wall == TOP) {
+			std::cout << "delete b" << std::endl;
+			cell1->wall = NO_WALL;
+			cell2->visited = true;
+			mazeGrid[cell2->getPosX()][cell2->getPosY()] = *cell2;
+			mazeGrid[cell1->getPosX()][cell1->getPosY()] = *cell1;
+		}
+		else if (cell1->getPosY() > cell2->getPosY() && cell1->wall == LEFT) {
+			std::cout << "dlety" << std::endl;
+			cell1->wall = LEFT;
+			cell2->visited = true;
+			mazeGrid[cell2->getPosX()][cell2->getPosY()] = *cell2;
+			mazeGrid[cell1->getPosX()][cell1->getPosY()] = *cell1;
+		}
+	}
+
+	else if (cell2->getPosY() == cell1->getPosY()) {
+		if (cell2->getPosX() > cell1->getPosX() && cell2->wall == TOP_AND_LEFT) {
+			std::cout << "delete 3" << std::endl;
+			cell2->wall = TOP;
+			cell2->visited = true;
+			mazeGrid[cell2->getPosX()][cell2->getPosY()] = *cell2;
+		}
+		else if (cell2->getPosX() > cell1->getPosX() && cell2->wall == LEFT) {
+			std::cout << "delete 4" << std::endl;
+			cell2->wall = NO_WALL;
+			cell2->visited = true;
+			mazeGrid[cell2->getPosX()][cell2->getPosY()] = *cell2;
+		}
+		else if (cell2->getPosX() > cell1->getPosX() && cell2->wall == TOP) {
+			std::cout << "delete 5" << std::endl;
+			cell2->wall = TOP;
+			cell2->visited = true;
+			mazeGrid[cell2->getPosX()][cell2->getPosY()] = *cell2;
+		}
+		else if (cell1->getPosX() > cell2->getPosX() && cell1->wall == TOP_AND_LEFT) {
+			std::cout << "delete c" << std::endl;
+			cell1->wall = TOP;
+			cell2->visited = true;
+			mazeGrid[cell2->getPosX()][cell2->getPosY()] = *cell2;
+			mazeGrid[cell1->getPosX()][cell1->getPosY()] = *cell1;
+		}
+		else if (cell1->getPosX() > cell2->getPosX() && cell1->wall == LEFT) {
+			std::cout << "delete d" << std::endl;
+			cell1->wall = NO_WALL;
+			cell2->visited = true;
+			mazeGrid[cell2->getPosX()][cell2->getPosY()] = *cell2;
+			mazeGrid[cell1->getPosX()][cell1->getPosY()] = *cell1;
+		}
+		else if (cell1->getPosX() > cell2->getPosX() && cell1->wall == TOP) {
+			std::cout << "delete e" << std::endl;
+			cell1->wall = TOP;
+			cell2->visited = true;
+			mazeGrid[cell2->getPosX()][cell2->getPosY()] = *cell2;
+			mazeGrid[cell1->getPosX()][cell1->getPosY()] = *cell1;
+		}
 	}
 }

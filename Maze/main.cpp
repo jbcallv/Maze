@@ -26,13 +26,9 @@ int main()
         grid->stepBacktracker();
         grid->Draw(window);
         window.display();
-        std::this_thread::sleep_for(std::chrono::milliseconds(300));
+        //std::this_thread::sleep_for(std::chrono::milliseconds(900));
     }
     grid->~Grid();
 
     return 0;
-}
-
-void Update(float dt) {
-    // update all stuff
 }

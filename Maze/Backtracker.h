@@ -18,11 +18,6 @@ public:
 	Backtracker();
 
 	/*
-	deletes a wall separating two cells
-	*/
-	void deleteWall(Cell**& mazeGrid, Cell cell1, Cell cell2);
-
-	/*
 	generates random adjacent cell
 	*/
 	Cell generateRandomAdjacentCell(Cell cell, Cell** m_mazeGrid);

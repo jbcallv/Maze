@@ -51,6 +51,12 @@ public:
 	*/
 	void stepBacktracker();
 
+	/*
+	deletes a wall between c1
+	and c2
+	*/
+	void deleteWall(Cell* cell1, Cell* cell2);
+
 private:
 	// rows and columns in maze
 	int rows;
