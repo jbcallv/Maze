@@ -1,6 +1,6 @@
 # Maze
 2D maze generation in C++ with various algorithms.
-![Demo](https://github.com/jbcallv/Maze/smallMaze.mp4)
+![Demo](https://github.com/jbcallv/Maze/blob/master/SmallMaze.mp4)
 
 # Purpose
 To learn about coding in C++ and different maze generation algorithms.
