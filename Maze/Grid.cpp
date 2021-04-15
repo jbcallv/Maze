@@ -39,6 +39,10 @@ void Grid::Draw(sf::RenderWindow& window) {
 				window.draw(mazeGrid[i][j].cellRect);
 			}
 			else if (wallLoc == TOP) {
+				// simply make this wall blend in with the background
+				mazeGrid[i][j].leftWall.setFillColor(OUT_OF_STACK);
+				window.draw(mazeGrid[i][j].leftWall);
+
 				// only draw top wall
 				window.draw(mazeGrid[i][j].topWall);
 				if (mazeGrid[i][j].visited && mazeGrid[i][j].cellRect.getFillColor() != OUT_OF_STACK) {
@@ -47,6 +51,10 @@ void Grid::Draw(sf::RenderWindow& window) {
 				window.draw(mazeGrid[i][j].cellRect);
 			}
 			else if (wallLoc == LEFT) {
+				// simply make this wall blend in with the background
+				mazeGrid[i][j].topWall.setFillColor(OUT_OF_STACK);
+				window.draw(mazeGrid[i][j].topWall);
+
 				// only draw left wall
 				window.draw(mazeGrid[i][j].leftWall);
 				if (mazeGrid[i][j].visited && mazeGrid[i][j].cellRect.getFillColor() != OUT_OF_STACK) {
@@ -56,6 +64,12 @@ void Grid::Draw(sf::RenderWindow& window) {
 			}
 
 			else if (wallLoc == NO_WALL) {
+				// simply make this wall blend with background
+				mazeGrid[i][j].topWall.setFillColor(OUT_OF_STACK);
+				mazeGrid[i][j].leftWall.setFillColor(OUT_OF_STACK);
+				window.draw(mazeGrid[i][j].topWall);
+				window.draw(mazeGrid[i][j].leftWall);
+
 				// draw no wall
 				if (mazeGrid[i][j].visited && mazeGrid[i][j].cellRect.getFillColor() != OUT_OF_STACK) {
 					mazeGrid[i][j].cellRect.setFillColor(VISITED);
