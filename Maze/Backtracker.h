@@ -23,16 +23,14 @@ public:
 	void deleteWall(Cell**& mazeGrid, Cell cell1, Cell cell2);
 
 	/*
-	returns the cell that is to the right of or below
-	the other
+	generates random adjacent cell
 	*/
-	Cell findRightOrBelow(Cell cell1, Cell cell2);
+	Cell generateRandomAdjacentCell(Cell cell, Cell** m_mazeGrid);
 
 	/*
-	returns the cell that is to the left of or above
-	the other
+	finds adjacent cells
 	*/
-	Cell findLeftOrAbove(Cell cell1, Cell cell2);
+	std::vector<Cell> findAdjacentCells(Cell** mazeGrid, Cell cell);
 
 	/*
 	the stack to which we push

@@ -34,5 +34,6 @@ cell color stuff
 const sf::Color UNVISITED = sf::Color(255, 255, 255, 255);
 const sf::Color VISITED = sf::Color(0, 0, 255, 255);
 const sf::Color WALL_COLOR = sf::Color(0, 0, 0, 255);
+const sf::Color OUT_OF_STACK = sf::Color(0, 255, 0, 255);
 
 #endif

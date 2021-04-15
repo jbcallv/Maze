@@ -12,7 +12,7 @@ Grid::Grid(int rows, int cols, int seed) {
 	for (int i = 0; i < cols; ++i) {
 		mazeGrid[i] = new Cell[rows];
 	}
-	std::cout << rows << ", " << cols << std::endl;
+	//std::cout << rows << ", " << cols << std::endl;
 }
 
 Grid::~Grid() {
@@ -35,7 +35,7 @@ void Grid::Draw(sf::RenderWindow& window) {
 				window.draw(mazeGrid[i][j].leftWall);
 				window.draw(mazeGrid[i][j].topWall);
 
-				if (mazeGrid[i][j].visited) {
+				if (mazeGrid[i][j].visited && mazeGrid[i][j].cellRect.getFillColor() != OUT_OF_STACK) {
 					mazeGrid[i][j].cellRect.setFillColor(VISITED);
 				}
 				window.draw(mazeGrid[i][j].cellRect);
@@ -43,7 +43,7 @@ void Grid::Draw(sf::RenderWindow& window) {
 			else if (wallLoc == TOP) {
 				// only draw top wall
 				window.draw(mazeGrid[i][j].topWall);
-				if (mazeGrid[i][j].visited) {
+				if (mazeGrid[i][j].visited && mazeGrid[i][j].cellRect.getFillColor() != OUT_OF_STACK) {
 					mazeGrid[i][j].cellRect.setFillColor(VISITED);
 				}
 				window.draw(mazeGrid[i][j].cellRect);
@@ -51,7 +51,7 @@ void Grid::Draw(sf::RenderWindow& window) {
 			else if (wallLoc == LEFT) {
 				// only draw left wall
 				window.draw(mazeGrid[i][j].leftWall);
-				if (mazeGrid[i][j].visited) {
+				if (mazeGrid[i][j].visited && mazeGrid[i][j].cellRect.getFillColor() != OUT_OF_STACK) {
 					mazeGrid[i][j].cellRect.setFillColor(VISITED);
 				}
 				window.draw(mazeGrid[i][j].cellRect);
@@ -59,7 +59,7 @@ void Grid::Draw(sf::RenderWindow& window) {
 
 			else if (wallLoc == NO_WALL) {
 				// draw no wall
-				if (mazeGrid[i][j].visited) {
+				if (mazeGrid[i][j].visited && mazeGrid[i][j].cellRect.getFillColor() != OUT_OF_STACK) {
 					mazeGrid[i][j].cellRect.setFillColor(VISITED);
 				}
 				window.draw(mazeGrid[i][j].cellRect);
@@ -95,11 +95,15 @@ void Grid::stepBacktracker() {
 	// takes one step in the backtracker algorithm
 	int visited = 1;
 	if (visited < (rows * cols)) {
-		Cell cellly = mazeGrid[curCell.getPosX() - 1][curCell.getPosY()];
-		backtracker.deleteWall(mazeGrid, curCell, cellly);
+		// delete test
+		//Cell cellly = mazeGrid[curCell.getPosX() - 1][curCell.getPosY()];
+		//backtracker.deleteWall(mazeGrid, curCell, cellly);
+
+		// find adjacent test
+
 		// curCell has adjacent unvisited cell
 		// bug here. It's not finding the adjacent cells :[
-		/*if (backtracker.findAdjacentCells(mazeGrid, curCell).size() > 0) {
+		if (backtracker.findAdjacentCells(mazeGrid, curCell).size() > 0) {
 			// push current cell to stack
 			backtracker.cellStack.push(curCell);
 			// generate a random adjacent cell
@@ -112,7 +116,7 @@ void Grid::stepBacktracker() {
 			// prove that my speculation is correct by printing out cell2.wall and cell1.wall here
 			// TODO: change all cells into pointers and all vectors into arrays
 			// TODO: change to ampersand before backtracker
-			backtracker.deleteWall(mazeGrid, backtracker.findLeftOrAbove(curCell, chosenCell), backtracker.findRightOrBelow(curCell, chosenCell));
+			backtracker.deleteWall(mazeGrid, curCell, chosenCell);
 
 			// make chosen cell the curCell and mark it as visited
 			//curCell.visited = true;
@@ -127,10 +131,17 @@ void Grid::stepBacktracker() {
 			// pop cell from stack and make it the current cell
 			// commented next line as it gets set as visited in next step
 			//backtracker.cellStack.top().visited = true;
+			//curCell.cellRect.setFillColor(sf::Color::Green);
+			std::cout << "Before: " << curCell.cellRect.getFillColor().toInteger() << std::endl;
+			mazeGrid[curCell.getPosX()][curCell.getPosY()].cellRect.setFillColor(OUT_OF_STACK);
+			curCell.cellRect.setFillColor(OUT_OF_STACK);
+			std::cout << "After: " << curCell.cellRect.getFillColor().toInteger() << std::endl;
 			curCell = backtracker.cellStack.top();
+			//mazeGrid[curCell.getPosX()][curCell.getPosY()] = curCell;
+			//mazeGrid[curCell.getPosX()][curCell.getPosY()].cellRect.setFillColor(sf::Color::Red);// = curCell;
 			backtracker.cellStack.pop();
 			// increment num of cells visited
 			//visited++;
-		}*/
+		}
 	}
 }
