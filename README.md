@@ -6,7 +6,9 @@
 To learn about coding in C++ and different maze generation algorithms.
 
 # Installation
-1.) You must have Visual Studio 2019 installed.
-2.) Clone this repository.
-3.) Open the project in Visual Studio 2019.
-4.) Run the project.
+<ol>
+  <li>You must have Visual Studio 2019 installed.</li>
+  <li>Clone this repository.</li>
+  <li>Open the project in Visual Studio 2019.</li>
+  <li>Run the project.</li>
+</ol>
