@@ -57,10 +57,7 @@ public:
 	*/
 	std::stack<Cell> cellStack;
 
-	// reset mazeGrid from grid.cpp to this on each wall deletion
-	//std::vector<std::vector<Cell>> m_mazeGrid;
 private:
-	//std::vector<std::vector<Cell>> m_mazeGrid;
 };
 
 #endif

@@ -19,6 +19,10 @@ Cell::Cell(int x, int y, int walls) {
 	this->generateWalls();
 }
 
+Cell::~Cell() {
+
+}
+
 void Cell::generateWalls() {
 	// cell has only a left wall
 	if (wall == LEFT) {

@@ -19,12 +19,16 @@ public:
 	//int mazeGrid[][];
 	Cell** mazeGrid;
 
-
 	/*
 	constructor to make
 	a maze grid with n rows and cols
 	*/
 	Grid(int rows, int cols, int seed);
+
+	/*
+	class destructor is neccessary
+	*/
+	~Grid();
 
 	/*
 	draws all the cells

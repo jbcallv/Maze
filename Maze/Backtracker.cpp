@@ -1,11 +1,9 @@
 #include "Backtracker.h"
 
 Backtracker::Backtracker(std::vector<std::vector<Cell>> mazeGrid) {
-	//this->m_mazeGrid = mazeGrid;
 }
 
 Backtracker::Backtracker() {
-	//celly = Cell();
 }
 
 // change to pass by reference
@@ -43,7 +41,6 @@ Cell Backtracker::generateRandomAdjacentCell(Cell cell, Cell **m_mazeGrid) {
 	// generate a random cell
 	int randCell = rand() % adjacentNonVisited.size();
 	return adjacentNonVisited.at(randCell);
-	//return sf::Vector2f(adjacentNonVisited.at(randCell).getPosX(), adjacentNonVisited.at(randCell).getPosY());
 }
 
 std::vector<Cell> Backtracker::findAdjacentCells(Cell **mazeGrid, Cell cell) {
@@ -58,92 +55,52 @@ std::vector<Cell> Backtracker::findAdjacentCells(Cell **mazeGrid, Cell cell) {
 
 	// x and y are away from edge of maze
 	if (x > 0 && x < rows && y < cols && y > 0) {
-		//if (mazeGrid.at(x + 1).at(y).visited == false) {
 		if (mazeGrid[x + 1][y].visited == false) {
-			//unvisited.push_back(mazeGrid.at(x + 1).at(y));
 			unvisited.push_back(mazeGrid[x + 1][y]);
 		}
-		//if (mazeGrid.at(x - 1).at(y).visited == false) {
 		if (mazeGrid[x - 1][y].visited == false) {
-			//unvisited.push_back(mazeGrid.at(x - 1).at(y));
 			unvisited.push_back(mazeGrid[x - 1][y]);
 		}
-		//if (mazeGrid.at(x).at(y + 1).visited == false) {
 		if (mazeGrid[x][y + 1].visited == false) {
-			//unvisited.push_back(mazeGrid.at(x).at(y + 1));
 			unvisited.push_back(mazeGrid[x][y + 1]);
 		}
-		//if (mazeGrid.at(x).at(y - 1).visited == false) {
 		if (mazeGrid[x][y - 1].visited == false) {
-			//unvisited.push_back(mazeGrid.at(x).at(y - 1));
 			unvisited.push_back(mazeGrid[x][y - 1]);
 		}
 	}
 
 	// x is at edge but y is not
 	else if (x == rows && y < cols && y > 0) {
-		/*if (mazeGrid.at(x - 1).at(y).visited == false) {
-			unvisited.push_back(mazeGrid.at(x - 1).at(y));
-		}
-		if (mazeGrid.at(x).at(y + 1).visited == false) {
-			unvisited.push_back(mazeGrid.at(x).at(y + 1));
-		}
-		if (mazeGrid.at(x).at(y - 1).visited == false) {
-			unvisited.push_back(mazeGrid.at(x).at(y - 1));
-		}*/
 		if (mazeGrid[x - 1][y].visited == false) {
-			//unvisited.push_back(mazeGrid.at(x - 1).at(y));
 			unvisited.push_back(mazeGrid[x - 1][y]);
 		}
 		if (mazeGrid[x][y + 1].visited == false) {
-			//unvisited.push_back(mazeGrid.at(x).at(y + 1));
 			unvisited.push_back(mazeGrid[x][y + 1]);
 		}
 		if (mazeGrid[x][y - 1].visited == false) {
-			//unvisited.push_back(mazeGrid.at(x).at(y - 1));
 			unvisited.push_back(mazeGrid[x][y - 1]);
 		}
 	}
 
 	// y is at edge but x is not
 	else if (x < rows && x > 0 && y == cols) {
-		/*if (mazeGrid.at(x).at(y - 1).visited == false) {
-			unvisited.push_back(mazeGrid.at(x).at(y - 1));
-		}
-		if (mazeGrid.at(x + 1).at(y).visited == false) {
-			unvisited.push_back(mazeGrid.at(x + 1).at(y));
-		}
-		if (mazeGrid.at(x - 1).at(y).visited == false) {
-			unvisited.push_back(mazeGrid.at(x - 1).at(y));
-		}*/
 		if (mazeGrid[x][y - 1].visited == false) {
-			//unvisited.push_back(mazeGrid.at(x).at(y - 1));
 			unvisited.push_back(mazeGrid[x][y - 1]);
 		}
 		if (mazeGrid[x + 1][y].visited == false) {
-			//unvisited.push_back(mazeGrid.at(x + 1).at(y));
 			unvisited.push_back(mazeGrid[x + 1][y]);
 		}
 		if (mazeGrid[x - 1][y].visited == false) {
-			//unvisited.push_back(mazeGrid.at(x - 1).at(y));
 			unvisited.push_back(mazeGrid[x - 1][y]);
 		}
 	}
 
 	// x and y are at edge (lower right corner)
 	else if (x == rows && y == cols) {
-		/*if (mazeGrid.at(x - 1).at(y).visited == false) {
-			unvisited.push_back(mazeGrid.at(x - 1).at(y));
-		}
-		if (mazeGrid.at(x).at(y - 1).visited == false) {
-			unvisited.push_back(mazeGrid.at(x).at(y - 1));
-		}*/
 		if (mazeGrid[x - 1][y].visited == false) {
-			//unvisited.push_back(mazeGrid.at(x - 1).at(y));
 			unvisited.push_back(mazeGrid[x - 1][y]);
 		}
 		if (mazeGrid[x][y - 1].visited == false) {
-			//unvisited.push_back(mazeGrid.at(x).at(y - 1));
 			unvisited.push_back(mazeGrid[x][y - 1]);
 		}
 	}
@@ -151,75 +108,41 @@ std::vector<Cell> Backtracker::findAdjacentCells(Cell **mazeGrid, Cell cell) {
 	// x is at left edge but y is not
 	else if (x == 0 && y < cols && y > 0) {
 		std::cout << "x is at left edge but y is not" << std::endl;
-		/*if (mazeGrid.at(x + 1).at(y).visited == false) {
-			unvisited.push_back(mazeGrid.at(x + 1).at(y));
-		}
-		if (mazeGrid.at(x).at(y + 1).visited == false) {
-			unvisited.push_back(mazeGrid.at(x).at(y + 1));
-		}
-		if (mazeGrid.at(x).at(y - 1).visited == false) {
-			unvisited.push_back(mazeGrid.at(x).at(y - 1));
-		}*/
+
 		if (mazeGrid[x + 1][y].visited == false) {
-			//unvisited.push_back(mazeGrid.at(x - 1).at(y));
 			unvisited.push_back(mazeGrid[x - 1][y]);
 		}
 		if (mazeGrid[x][y + 1].visited == false) {
-			//unvisited.push_back(mazeGrid.at(x).at(y + 1));
 			unvisited.push_back(mazeGrid[x][y + 1]);
 		}
 		if (mazeGrid[x][y - 1].visited == false) {
-			//unvisited.push_back(mazeGrid.at(x).at(y - 1));
 			unvisited.push_back(mazeGrid[x][y - 1]);
 		}
 	}
 
 	// y is at upper edge but x is not
 	else if (x < rows && x > 0 && y == 0) {
-		/*if (mazeGrid.at(x).at(y + 1).visited == false) {
-			unvisited.push_back(mazeGrid.at(x).at(y + 1));
-		}
-		if (mazeGrid.at(x + 1).at(y).visited == false) {
-			unvisited.push_back(mazeGrid.at(x + 1).at(y));
-		}
-		if (mazeGrid.at(x - 1).at(y).visited == false) {
-			unvisited.push_back(mazeGrid.at(x - 1).at(y));
-		}*/
 		if (mazeGrid[x][y + 1].visited == false) {
-			//unvisited.push_back(mazeGrid.at(x).at(y - 1));
 			unvisited.push_back(mazeGrid[x][y - 1]);
 		}
 		if (mazeGrid[x + 1][y].visited == false) {
-			//unvisited.push_back(mazeGrid.at(x + 1).at(y));
 			unvisited.push_back(mazeGrid[x + 1][y]);
 		}
 		if (mazeGrid[x - 1][y].visited == false) {
-			//unvisited.push_back(mazeGrid.at(x - 1).at(y));
 			unvisited.push_back(mazeGrid[x - 1][y]);
 		}
 	}
 
 	// x and y in upper left corner
 	else if (x == 0 && y == 0) {
-		/*if (mazeGrid.at(x).at(y + 1).visited == false) {
-			unvisited.push_back(mazeGrid.at(x).at(y + 1));
-		}
-		if (mazeGrid.at(x + 1).at(y).visited == false) {
-			unvisited.push_back(mazeGrid.at(x + 1).at(y));
-		}*/
 		if (mazeGrid[x][y + 1].visited == false) {
-			//unvisited.push_back(mazeGrid.at(x).at(y - 1));
 			unvisited.push_back(mazeGrid[x][y - 1]);
 		}
 		if (mazeGrid[x + 1][y].visited == false) {
-			//unvisited.push_back(mazeGrid.at(x + 1).at(y));
 			unvisited.push_back(mazeGrid[x + 1][y]);
 		}
 	}
 
-	/*for (int i = 0; i < unvisited.size(); ++i) {
-		std::cout << "unvisited: " << unvisited.at(i).getPosX() << unvisited.at(i).getPosY() << std::endl;
-	}*/
 	return unvisited;
 }
 
