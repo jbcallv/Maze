@@ -12,6 +12,7 @@ Grid::Grid(int rows, int cols, int seed) {
 	for (int i = 0; i < cols; ++i) {
 		mazeGrid[i] = new Cell[rows];
 	}
+	std::cout << rows << ", " << cols << std::endl;
 }
 
 Grid::~Grid() {
@@ -77,6 +78,7 @@ void Grid::generateCells() {
 		}
 	}
 	sf::Vector2f startingPoint = generateStartingCellBacktracker();
+	std::cout << startingPoint.x << ", " << startingPoint.y << std::endl;
 	mazeGrid[(int) startingPoint.x][(int) startingPoint.y].visited = true;
 	curCell = mazeGrid[(int)startingPoint.x][(int)startingPoint.y];
 }
@@ -93,21 +95,27 @@ void Grid::stepBacktracker() {
 	// takes one step in the backtracker algorithm
 	int visited = 1;
 	if (visited < (rows * cols)) {
+		Cell cellly = mazeGrid[curCell.getPosX() - 1][curCell.getPosY()];
+		backtracker.deleteWall(mazeGrid, curCell, cellly);
 		// curCell has adjacent unvisited cell
-		if (backtracker.findAdjacentCells(mazeGrid, curCell).size() > 0) {
+		// bug here. It's not finding the adjacent cells :[
+		/*if (backtracker.findAdjacentCells(mazeGrid, curCell).size() > 0) {
 			// push current cell to stack
 			backtracker.cellStack.push(curCell);
 			// generate a random adjacent cell
 			Cell chosenCell = backtracker.generateRandomAdjacentCell(curCell, mazeGrid);
+			std::cout << "cur Cell: " << curCell.getPosX() << ", " << curCell.getPosY() << std::endl;
+			std::cout << "chosen cell: " << chosenCell.getPosX() << ", " << chosenCell.getPosY() << std::endl;
 			// remove wall between curCell and chosen cell
 
 			// passing by value here which doesn't modify cell 1 or cell 2
 			// prove that my speculation is correct by printing out cell2.wall and cell1.wall here
 			// TODO: change all cells into pointers and all vectors into arrays
 			// TODO: change to ampersand before backtracker
-			backtracker.deleteWall(backtracker.findLeftOrAbove(curCell, chosenCell), backtracker.findRightOrBelow(curCell, chosenCell));
+			backtracker.deleteWall(mazeGrid, backtracker.findLeftOrAbove(curCell, chosenCell), backtracker.findRightOrBelow(curCell, chosenCell));
 
 			// make chosen cell the curCell and mark it as visited
+			//curCell.visited = true;
 			chosenCell.visited = true;
 			curCell = chosenCell;
 			// increment num of cells visited
@@ -123,6 +131,6 @@ void Grid::stepBacktracker() {
 			backtracker.cellStack.pop();
 			// increment num of cells visited
 			//visited++;
-		}
+		}*/
 	}
 }

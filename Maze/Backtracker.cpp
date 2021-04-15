@@ -1,40 +1,95 @@
 #include "Backtracker.h"
 
-Backtracker::Backtracker(std::vector<std::vector<Cell>> mazeGrid) {
-}
-
 Backtracker::Backtracker() {
 }
 
 // change to pass by reference
-void Backtracker::deleteWall(Cell cell1, Cell cell2) {
+void Backtracker::deleteWall(Cell**& mazeGrid, Cell cell1, Cell cell2) {
 	// delete wall between cell1 and cell2 where cell 2
 	// is the cell to the right of or below cell 1
 	// remember that you can only pass in two adjacent cells
 
-	// first check which cell is above or left of the other
-
-	// pass by value problem. Cell2 is modified here but not in Grid.cpp:98
-	if (cell2.getPosY() > cell1.getPosY() && cell2.wall == TOP_AND_LEFT) {
-		cell2.wall = LEFT;
+	//std::cout << "deleteWall" << std::endl;
+	if (cell2.getPosX() == cell1.getPosX()) {
+		if (cell2.getPosY() > cell1.getPosY() && cell2.wall == TOP_AND_LEFT) {
+			std::cout << "delete 1" << std::endl;
+			cell2.wall = LEFT;
+			cell2.visited = true;
+			mazeGrid[cell2.getPosX()][cell2.getPosY()] = cell2;
+		}
+		else if (cell2.getPosY() > cell1.getPosY() && cell2.wall == TOP) {
+			std::cout << "delete 2" << std::endl;
+			cell2.wall = NO_WALL;
+			cell2.visited = true;
+			mazeGrid[cell2.getPosX()][cell2.getPosY()] = cell2;
+		}
+		else if (cell2.getPosY() > cell1.getPosY() && cell2.wall == LEFT) {
+			std::cout << "deletey" << std::endl;
+			cell2.wall = LEFT;
+			cell2.visited = true;
+			mazeGrid[cell2.getPosX()][cell2.getPosY()] = cell2;
+		}
+		else if (cell1.getPosY() > cell2.getPosY() && cell1.wall == TOP_AND_LEFT) {
+			std::cout << "delete a" << std::endl;
+			cell1.wall = LEFT;
+			mazeGrid[cell2.getPosX()][cell2.getPosY()].visited = true;
+			mazeGrid[cell1.getPosX()][cell1.getPosY()] = cell1;
+		}
+		else if (cell1.getPosY() > cell2.getPosY() && cell1.wall == TOP) {
+			std::cout << "delete b" << std::endl;
+			cell1.wall = NO_WALL;
+			mazeGrid[cell2.getPosX()][cell2.getPosY()].visited = true;
+			mazeGrid[cell1.getPosX()][cell1.getPosY()] = cell1;
+		}
+		else if (cell1.getPosY() > cell2.getPosY() && cell1.wall == LEFT) {
+			std::cout << "dlety" << std::endl;
+			cell1.wall = LEFT;
+			mazeGrid[cell2.getPosX()][cell2.getPosY()].visited = true;
+			mazeGrid[cell1.getPosX()][cell1.getPosY()] = cell1;
+		}
 	}
-	
-	else if (cell2.getPosY() > cell1.getPosY() && cell2.wall == TOP) {
-		cell2.wall = NO_WALL;
-	}
 
-	else if (cell2.getPosX() > cell1.getPosX() && cell2.wall == TOP_AND_LEFT) {
-		cell2.wall = TOP;
+	else if (cell2.getPosY() == cell1.getPosY()) {
+		if (cell2.getPosX() > cell1.getPosX() && cell2.wall == TOP_AND_LEFT) {
+			std::cout << "delete 3" << std::endl;
+			cell2.wall = TOP;
+			cell2.visited = true;
+			mazeGrid[cell2.getPosX()][cell2.getPosY()] = cell2;
+		}
+		else if (cell2.getPosX() > cell1.getPosX() && cell2.wall == LEFT) {
+			std::cout << "delete 4" << std::endl;
+			cell2.wall = NO_WALL;
+			cell2.visited = true;
+			mazeGrid[cell2.getPosX()][cell2.getPosY()] = cell2;
+		}
+		else if (cell2.getPosX() > cell1.getPosX() && cell2.wall == TOP) {
+			std::cout << "delete 5" << std::endl;
+			cell2.wall = TOP;
+			cell2.visited = true;
+			mazeGrid[cell2.getPosX()][cell2.getPosY()] = cell2;
+		}
+		else if (cell1.getPosX() > cell2.getPosX() && cell1.wall == TOP_AND_LEFT) {
+			std::cout << "delete c" << std::endl;
+			cell1.wall = TOP;
+			mazeGrid[cell2.getPosX()][cell2.getPosY()].visited = true;
+			mazeGrid[cell1.getPosX()][cell1.getPosY()] = cell1;
+		}
+		else if (cell1.getPosX() > cell2.getPosX() && cell1.wall == LEFT) {
+			std::cout << "delete d" << std::endl;
+			cell1.wall = NO_WALL;
+			mazeGrid[cell2.getPosX()][cell2.getPosY()].visited = true;
+			mazeGrid[cell1.getPosX()][cell1.getPosY()] = cell1;
+		}
+		else if (cell1.getPosX() > cell2.getPosX() && cell1.wall == TOP) {
+			std::cout << "delete e" << std::endl;
+			cell1.wall = TOP;
+			mazeGrid[cell2.getPosX()][cell2.getPosY()].visited = true;
+			mazeGrid[cell1.getPosX()][cell1.getPosY()] = cell1;
+		}
 	}
-
-	else if (cell2.getPosX() > cell1.getPosX() && cell2.wall == LEFT) {
-		cell2.wall = NO_WALL;
-	}
-
-	// pass by value problem 2: cell1 needs to be set to cell 2 here
 }
 
-Cell Backtracker::generateRandomAdjacentCell(Cell cell, Cell **m_mazeGrid) {
+/*Cell Backtracker::generateRandomAdjacentCell(Cell cell, Cell **m_mazeGrid) {
 	// find all unvisited adjacent cells
 	std::vector<Cell> adjacentNonVisited = findAdjacentCells(m_mazeGrid, cell);
 
@@ -44,8 +99,9 @@ Cell Backtracker::generateRandomAdjacentCell(Cell cell, Cell **m_mazeGrid) {
 }
 
 std::vector<Cell> Backtracker::findAdjacentCells(Cell **mazeGrid, Cell cell) {
-	int rows = WIDTH / CELL_HEIGHT;
-	int cols = HEIGHT / CELL_WIDTH;
+	// change to rows - 1?
+	int rows = (HEIGHT / CELL_HEIGHT) - 1;
+	int cols = (WIDTH / CELL_WIDTH) - 1;
 
 	int x = cell.getPosX();
 	int y = cell.getPosY();
@@ -54,7 +110,8 @@ std::vector<Cell> Backtracker::findAdjacentCells(Cell **mazeGrid, Cell cell) {
 	std::vector<Cell> unvisited;
 
 	// x and y are away from edge of maze
-	if (x > 0 && x < rows && y < cols && y > 0) {
+	if (x > 0 && x < cols && y < rows && y > 0) {
+		std::cout << "first if" << std::endl;
 		if (mazeGrid[x + 1][y].visited == false) {
 			unvisited.push_back(mazeGrid[x + 1][y]);
 		}
@@ -67,10 +124,13 @@ std::vector<Cell> Backtracker::findAdjacentCells(Cell **mazeGrid, Cell cell) {
 		if (mazeGrid[x][y - 1].visited == false) {
 			unvisited.push_back(mazeGrid[x][y - 1]);
 		}
+		// we weren't stopping, haha. New: return statement in each outer conditional
+		return unvisited;
 	}
 
 	// x is at edge but y is not
-	else if (x == rows && y < cols && y > 0) {
+	else if (x == cols && y < rows && y > 0) {
+		std::cout << "second if" << std::endl;
 		if (mazeGrid[x - 1][y].visited == false) {
 			unvisited.push_back(mazeGrid[x - 1][y]);
 		}
@@ -80,37 +140,44 @@ std::vector<Cell> Backtracker::findAdjacentCells(Cell **mazeGrid, Cell cell) {
 		if (mazeGrid[x][y - 1].visited == false) {
 			unvisited.push_back(mazeGrid[x][y - 1]);
 		}
+		return unvisited;
 	}
 
 	// y is at edge but x is not
-	else if (x < rows && x > 0 && y == cols) {
+	else if (x < cols && x > 0 && y == rows) {
+		std::cout << "third if" << std::endl;
 		if (mazeGrid[x][y - 1].visited == false) {
+			std::cout << "firsty" << std::endl;
 			unvisited.push_back(mazeGrid[x][y - 1]);
 		}
 		if (mazeGrid[x + 1][y].visited == false) {
+			std::cout << "secondy" << std::endl;
 			unvisited.push_back(mazeGrid[x + 1][y]);
 		}
 		if (mazeGrid[x - 1][y].visited == false) {
+			std::cout << "thirdy" << std::endl;
 			unvisited.push_back(mazeGrid[x - 1][y]);
 		}
+		return unvisited;
 	}
 
 	// x and y are at edge (lower right corner)
-	else if (x == rows && y == cols) {
+	else if (x == cols && y == rows) {
+		std::cout << "fourth if" << std::endl;
 		if (mazeGrid[x - 1][y].visited == false) {
 			unvisited.push_back(mazeGrid[x - 1][y]);
 		}
 		if (mazeGrid[x][y - 1].visited == false) {
 			unvisited.push_back(mazeGrid[x][y - 1]);
 		}
+		return unvisited;
 	}
 
 	// x is at left edge but y is not
-	else if (x == 0 && y < cols && y > 0) {
-		std::cout << "x is at left edge but y is not" << std::endl;
-
+	else if (x == 0 && y < rows && y > 0) {
+		std::cout << "fifth if" << std::endl;
 		if (mazeGrid[x + 1][y].visited == false) {
-			unvisited.push_back(mazeGrid[x - 1][y]);
+			unvisited.push_back(mazeGrid[x + 1][y]);
 		}
 		if (mazeGrid[x][y + 1].visited == false) {
 			unvisited.push_back(mazeGrid[x][y + 1]);
@@ -118,12 +185,14 @@ std::vector<Cell> Backtracker::findAdjacentCells(Cell **mazeGrid, Cell cell) {
 		if (mazeGrid[x][y - 1].visited == false) {
 			unvisited.push_back(mazeGrid[x][y - 1]);
 		}
+		return unvisited;
 	}
 
 	// y is at upper edge but x is not
-	else if (x < rows && x > 0 && y == 0) {
+	else if (x < cols && x > 0 && y == 0) {
+		std::cout << "sixth if" << std::endl;
 		if (mazeGrid[x][y + 1].visited == false) {
-			unvisited.push_back(mazeGrid[x][y - 1]);
+			unvisited.push_back(mazeGrid[x][y + 1]);
 		}
 		if (mazeGrid[x + 1][y].visited == false) {
 			unvisited.push_back(mazeGrid[x + 1][y]);
@@ -131,35 +200,38 @@ std::vector<Cell> Backtracker::findAdjacentCells(Cell **mazeGrid, Cell cell) {
 		if (mazeGrid[x - 1][y].visited == false) {
 			unvisited.push_back(mazeGrid[x - 1][y]);
 		}
+		return unvisited;
 	}
 
 	// x and y in upper left corner
 	else if (x == 0 && y == 0) {
+		std::cout << "seventh if" << std::endl;
 		if (mazeGrid[x][y + 1].visited == false) {
-			unvisited.push_back(mazeGrid[x][y - 1]);
+			unvisited.push_back(mazeGrid[x][y + 1]);
 		}
 		if (mazeGrid[x + 1][y].visited == false) {
 			unvisited.push_back(mazeGrid[x + 1][y]);
 		}
+		return unvisited;
 	}
 
 	return unvisited;
-}
+}*/
 
 Cell Backtracker::findRightOrBelow(Cell cell1, Cell cell2) {
-	if (cell1.getPosX() > cell2.getPosX() || cell1.getPosY() > cell2.getPosY()) {
+	if (!(cell1.getPosX() > cell2.getPosX()) != !(cell1.getPosY() > cell2.getPosY())) {
 		return cell1;
 	}
-	else {
+	else if (!(cell2.getPosX() > cell1.getPosX()) != !(cell2.getPosY() > cell1.getPosY())) {
 		return cell2;
 	}
 }
 
 Cell Backtracker::findLeftOrAbove(Cell cell1, Cell cell2) {
-	if (cell1.getPosX() < cell2.getPosX() || cell1.getPosY() < cell2.getPosY()) {
+	if (!(cell1.getPosX() < cell2.getPosX()) != !(cell1.getPosY() < cell2.getPosY())) {
 		return cell1;
 	}
-	else {
+	else if (!(cell2.getPosX() < cell1.getPosX()) != !(cell2.getPosY() < cell1.getPosY())) {
 		return cell2;
 	}
 }

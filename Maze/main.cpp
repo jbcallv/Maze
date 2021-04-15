@@ -2,6 +2,9 @@
 #include "Constants.h"
 #include "Grid.h"
 
+#include <thread>
+#include <chrono>
+
 int main()
 {
     sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "Maze", sf::Style::Titlebar | sf::Style::Close);
@@ -19,12 +22,11 @@ int main()
                 window.close();
             }
         }
-
         window.clear(sf::Color::White);
-        //grid.stepBacktracker();
-        //grid.Draw(window);
+        grid->stepBacktracker();
         grid->Draw(window);
         window.display();
+        //std::this_thread::sleep_for(std::chrono::milliseconds(2000));
     }
     grid->~Grid();
 
