@@ -32,7 +32,10 @@ void Backtracker::deleteWall(Cell**& mazeGrid, Cell cell1, Cell cell2) {
 		else if (cell1.getPosY() > cell2.getPosY() && cell1.wall == TOP_AND_LEFT) {
 			std::cout << "delete a" << std::endl;
 			cell1.wall = LEFT;
-			mazeGrid[cell2.getPosX()][cell2.getPosY()].visited = true;
+			//cell1.visited = true;
+			cell2.visited = true;
+			//mazeGrid[cell2.getPosX()][cell2.getPosY()].visited = true;
+			mazeGrid[cell2.getPosX()][cell2.getPosY()] = cell2;
 			mazeGrid[cell1.getPosX()][cell1.getPosY()] = cell1;
 		}
 		else if (cell1.getPosY() > cell2.getPosY() && cell1.wall == TOP) {
@@ -71,8 +74,11 @@ void Backtracker::deleteWall(Cell**& mazeGrid, Cell cell1, Cell cell2) {
 		// CAUSES WALL TO REAPPEAR
 		else if (cell1.getPosX() > cell2.getPosX() && cell1.wall == TOP_AND_LEFT) {
 			std::cout << "delete c" << std::endl;
-			cell1.wall = TOP;
-			mazeGrid[cell2.getPosX()][cell2.getPosY()].visited = true;
+			// CHANGES WALL TO LEFT BUT THEN ENTER NEXT DELETION LIKE IT HAS A TOP_AND_LEFT WALL!!!
+			cell1.wall = LEFT;
+			cell2.visited = true;
+			//mazeGrid[cell2.getPosX()][cell2.getPosY()].visited = true;
+			mazeGrid[cell2.getPosX()][cell2.getPosY()] = cell2;
 			mazeGrid[cell1.getPosX()][cell1.getPosY()] = cell1;
 		}
 		else if (cell1.getPosX() > cell2.getPosX() && cell1.wall == LEFT) {

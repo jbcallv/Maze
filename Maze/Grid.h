@@ -56,6 +56,7 @@ private:
 	int rows;
 	int cols;
 	int seed;
+	int visited;
 
 	Backtracker backtracker;
 	Cell curCell;

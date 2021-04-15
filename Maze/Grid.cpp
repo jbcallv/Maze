@@ -6,6 +6,7 @@ Grid::Grid(int rows, int cols, int seed) {
 	this->rows = rows;
 	this->cols = cols;
 	this->seed = seed;
+	this->visited = 0;
 
 	// make this entire class more efficient by using a 1D array instead
 	this->mazeGrid = new Cell*[cols];
@@ -93,17 +94,18 @@ sf::Vector2f Grid::generateStartingCellBacktracker() {
 
 void Grid::stepBacktracker() {
 	// takes one step in the backtracker algorithm
-	int visited = 1;
-	if (visited < (rows * cols)) {
+	if (visited < ((rows) * (cols))) {
 		// delete test
-		//Cell cellly = mazeGrid[curCell.getPosX() - 1][curCell.getPosY()];
-		//backtracker.deleteWall(mazeGrid, curCell, cellly);
+		Cell celly = mazeGrid[curCell.getPosX()][curCell.getPosY() - 1];
+		Cell cellly = mazeGrid[curCell.getPosX() - 1][curCell.getPosY()];
+		backtracker.deleteWall(mazeGrid, curCell, cellly);
+		backtracker.deleteWall(mazeGrid, curCell, celly);
 
 		// find adjacent test
 
 		// curCell has adjacent unvisited cell
 		// bug here. It's not finding the adjacent cells :[
-		if (backtracker.findAdjacentCells(mazeGrid, curCell).size() > 0) {
+		/*if (backtracker.findAdjacentCells(mazeGrid, curCell).size() > 0) {
 			// push current cell to stack
 			backtracker.cellStack.push(curCell);
 			// generate a random adjacent cell
@@ -143,5 +145,8 @@ void Grid::stepBacktracker() {
 			// increment num of cells visited
 			//visited++;
 		}
+		else {
+			visited++;
+		}*/
 	}
 }
