@@ -1,5 +1,6 @@
 # Maze
 2D maze generation in C++ with various algorithms.
+![Demo](https://github.com/jbcallv/Maze/issues/1#issue-859271855)
 
 # Purpose
 To learn about coding in C++ and different maze generation algorithms.
